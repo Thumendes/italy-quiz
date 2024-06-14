@@ -5,6 +5,8 @@ import { Ranking } from "@/lib/ranking";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const ranking = await Ranking.create();
 
