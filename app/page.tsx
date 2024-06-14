@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ranking } from "@/lib/ranking";
+import { Ranking } from "@/lib/ranking";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const ranking = await Ranking.create();
+
   async function startScore(formData: FormData) {
     "use server";
 
-    const user = ranking.add({
-      name: formData.get("name") as string,
-      score: 0,
-    });
+    const ranking = await Ranking.create();
+    const user = await ranking.add({ name: formData.get("name") as string, score: 0 });
 
     cookies().set("id", user.id);
 
