@@ -48,18 +48,22 @@ export function QuizForm({ id }: QuizFormProps) {
     const nextItem = currentItem + 1;
 
     if (nextItem >= quiz.length) {
-      await fetch(`/api/score`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, score }),
-      });
-
       setFinished(true);
       await triggerConfetti();
       return;
     }
 
     setCurrentItem((prev) => prev + 1);
+  }
+
+  async function handleFinish() {
+    await fetch(`/api/score`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, score }),
+    });
+
+    router.push("/");
   }
 
   return (
@@ -78,7 +82,7 @@ export function QuizForm({ id }: QuizFormProps) {
               : "Tente novamente para acertar todas as perguntas."}
           </p>
 
-          <Button size="lg" onClick={() => router.push("/")}>
+          <Button size="lg" onClick={handleFinish}>
             Voltar para Ranking
           </Button>
         </div>
