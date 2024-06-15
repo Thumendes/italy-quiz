@@ -3,15 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { cn, delay } from "@/lib/utils";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
-import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
-import { quiz } from "./data";
-import { useWindowSize } from "react-use";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
+import { quizHard } from "./data";
 
 interface QuizFormProps {
   id: string;
 }
+
+const usingQuiz = quizHard;
+const initialTimer = 30;
 
 export function QuizForm({ id }: QuizFormProps) {
   const router = useRouter();
@@ -23,14 +26,10 @@ export function QuizForm({ id }: QuizFormProps) {
   const [finished, setFinished] = useState(false);
   const { height, width } = useWindowSize();
   const [isParty, setIsParty] = useState(false);
+  const [timer, setTimer] = useState(initialTimer);
+  const [showCorrect, setShowCorrect] = useState(false);
 
-  async function triggerConfetti() {
-    setIsParty(true);
-    await delay(2000);
-    setIsParty(false);
-  }
-
-  const currentQuizItem = quiz[currentItem];
+  const currentQuizItem = usingQuiz[currentItem];
 
   async function checkAnswer() {
     const isCorrect = answers[currentItem] === currentQuizItem.options[currentQuizItem.answer];
@@ -42,17 +41,22 @@ export function QuizForm({ id }: QuizFormProps) {
       setStatus(false);
     }
 
+    if (!answers[currentItem]) {
+      setShowCorrect(true);
+      await delay(2000);
+    }
     await delay(1000);
 
     setStatus(null);
     const nextItem = currentItem + 1;
 
-    if (nextItem >= quiz.length) {
+    if (nextItem >= usingQuiz.length) {
       setFinished(true);
       await triggerConfetti();
       return;
     }
 
+    setShowCorrect(false);
     setCurrentItem((prev) => prev + 1);
   }
 
@@ -66,6 +70,24 @@ export function QuizForm({ id }: QuizFormProps) {
     router.push("/");
   }
 
+  async function triggerConfetti() {
+    setIsParty(true);
+    await delay(2000);
+    setIsParty(false);
+  }
+
+  useEffect(() => {
+    const interval = timer > 0 && setInterval(() => setTimer(timer - 1), 1000);
+
+    if (timer === 0) {
+      checkAnswer().then(() => setTimer(initialTimer));
+    }
+
+    return () => {
+      interval && clearInterval(interval);
+    };
+  }, [timer]);
+
   return (
     <div className="space-y-6">
       {finished ? (
@@ -73,11 +95,11 @@ export function QuizForm({ id }: QuizFormProps) {
           <CheckCircledIcon className="size-16 text-green-500" />
 
           <p className="text-2xl font-semibold">
-            You got {score} of {quiz.length} right!
+            You got {score} of {usingQuiz.length} right!
           </p>
 
           <p className="text-lg text-muted-foreground">
-            {score === quiz.length
+            {score === usingQuiz.length
               ? "Congratulations! You got all the questions right."
               : "Try again to get all questions correct."}
           </p>
@@ -95,6 +117,7 @@ export function QuizForm({ id }: QuizFormProps) {
           <ul className="space-y-3">
             {currentQuizItem.options.map((option, index) => {
               const selected = answers[currentItem] === option;
+              const isCorrect = currentQuizItem.options[currentQuizItem.answer] === option;
 
               return (
                 <li
@@ -109,6 +132,7 @@ export function QuizForm({ id }: QuizFormProps) {
                   className={cn(
                     "border px-4 py-3 rounded-md cursor-pointer",
                     selected && "bg-muted font-semibold",
+                    showCorrect && isCorrect && "border-green-500 bg-green-100",
                     typeof status === "boolean" &&
                       selected &&
                       (status ? "border-green-500 bg-green-500 text-white" : "border-red-500 bg-red-500 text-white")
@@ -121,11 +145,18 @@ export function QuizForm({ id }: QuizFormProps) {
           </ul>
 
           <div className="flex items-center justify-between">
-            <div className="text-start">
-              <p className="text-sm text-muted-foreground">Score</p>
-              <span className="text-3xl">
-                {score}/{quiz.length}
-              </span>
+            <div className="flex items-center gap-8">
+              <div className="text-start">
+                <p className="text-sm text-muted-foreground">Score</p>
+                <span className="text-3xl">
+                  {score}/{usingQuiz.length}
+                </span>
+              </div>
+
+              <div className="text-start">
+                <p className="text-sm text-muted-foreground">Time</p>
+                <span className="text-3xl">{timer}</span>
+              </div>
             </div>
 
             <Button size="lg" onClick={checkAnswer} disabled={typeof status === "boolean"}>
