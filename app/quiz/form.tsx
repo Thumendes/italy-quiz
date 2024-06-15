@@ -73,17 +73,17 @@ export function QuizForm({ id }: QuizFormProps) {
           <CheckCircledIcon className="size-16 text-green-500" />
 
           <p className="text-2xl font-semibold">
-            Você acertou {score} de {quiz.length}!
+            You got {score} of {quiz.length} right!
           </p>
 
           <p className="text-lg text-muted-foreground">
             {score === quiz.length
-              ? "Parabéns! Você acertou todas as perguntas."
-              : "Tente novamente para acertar todas as perguntas."}
+              ? "Congratulations! You got all the questions right."
+              : "Try again to get all questions correct."}
           </p>
 
           <Button size="lg" onClick={handleFinish}>
-            Voltar para Ranking
+            Get back to Ranking
           </Button>
         </div>
       ) : (
@@ -122,14 +122,14 @@ export function QuizForm({ id }: QuizFormProps) {
 
           <div className="flex items-center justify-between">
             <div className="text-start">
-              <p className="text-sm text-muted-foreground">Pontuação</p>
+              <p className="text-sm text-muted-foreground">Score</p>
               <span className="text-3xl">
                 {score}/{quiz.length}
               </span>
             </div>
 
             <Button size="lg" onClick={checkAnswer} disabled={typeof status === "boolean"}>
-              Próxima
+              Next Question
             </Button>
           </div>
         </>

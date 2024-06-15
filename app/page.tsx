@@ -26,15 +26,15 @@ export default async function Home() {
       <div className="container max-w-screen-sm mx-auto space-y-8">
         <header>
           <h1 className="text-2xl font-semibold mb-2">Quiz Italy 🇮🇹</h1>
-          <p className="text-muted-foreground">Venha descobrir o seu conhecimento sobre a cultura italiana!</p>
+          <p className="text-muted-foreground">Come discover your knowledge about the italian culture</p>
         </header>
 
         <Table>
-          <TableCaption>Classificação do Ranking</TableCaption>
+          <TableCaption>Ranking Classification</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead>Nome</TableHead>
-              <TableHead>Pontuação</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Score</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -49,8 +49,8 @@ export default async function Home() {
 
         <footer>
           <form action={startScore} className="flex items-center gap-4">
-            <Input name="name" placeholder="Seu nome" />
-            <Button type="submit">Começar novo quiz</Button>
+            <Input name="name" placeholder="Your name" />
+            <Button type="submit">Start new quiz</Button>
           </form>
         </footer>
       </div>

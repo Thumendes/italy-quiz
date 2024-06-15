@@ -6,53 +6,53 @@ export interface QuizItem {
 
 export const quiz = [
   {
-    question: "Qual é a capital da Itália?",
-    options: ["Milão", "Roma", "Veneza", "Florença"],
+    question: "What is the capital of Italy?",
+    options: ["Milan", "Rome", "Venice", "Florence"],
     answer: 1,
   },
   {
-    question: "Qual destes pratos é tradicionalmente italiano?",
+    question: "Which of these dishes is traditionally Italian?",
     options: ["Sushi", "Taco", "Pizza", "Poutine"],
     answer: 2,
   },
   {
-    question: "Quem pintou a Capela Sistina?",
+    question: "Who painted the Sistine Chapel?",
     options: ["Leonardo da Vinci", "Michelangelo", "Raphael", "Caravaggio"],
     answer: 1,
   },
   {
-    question: "Qual é o idioma oficial da Itália?",
-    options: ["Espanhol", "Francês", "Italiano", "Alemão"],
+    question: "What is the official language of Italy?",
+    options: ["Spanish", "French", "Italian", "German"],
     answer: 2,
   },
   {
-    question: "Qual destas cidades italianas é famosa por seus canais?",
-    options: ["Roma", "Milão", "Veneza", "Nápoles"],
+    question: "Which of these Italian cities is famous for its canals?",
+    options: ["Rome", "Milan", "Venice", "Naples"],
     answer: 2,
   },
   {
-    question: "Qual é a moeda oficial da Itália?",
-    options: ["Lira", "Euro", "Dólar", "Franco"],
+    question: "What is the official currency of Italy?",
+    options: ["Lira", "Euro", "Dollar", "Franc"],
     answer: 1,
   },
   {
-    question: "Qual é o maior vulcão ativo da Europa, localizado na Sicília?",
-    options: ["Vesúvio", "Etna", "Stromboli", "Krakatoa"],
+    question: "What is the largest active volcano in Europe, located in Sicily?",
+    options: ["Vesuvius", "Etna", "Stromboli", "Krakatoa"],
     answer: 1,
   },
   {
-    question: "Quem escreveu a obra 'A Divina Comédia'?",
-    options: ["Petrarca", "Boccaccio", "Dante Alighieri", "Machiavelli"],
+    question: "Who wrote the work 'The Divine Comedy'?",
+    options: ["Petrarch", "Boccaccio", "Dante Alighieri", "Machiavelli"],
     answer: 2,
   },
   {
-    question: "Qual é o nome do famoso festival de cinema que acontece anualmente na Itália?",
-    options: ["Festival de Cannes", "Festival de Veneza", "Festival de Berlim", "Festival de Sundance"],
+    question: "What is the name of the famous film festival held annually in Italy?",
+    options: ["Cannes Film Festival", "Venice Film Festival", "Berlin Film Festival", "Sundance Film Festival"],
     answer: 1,
   },
   {
-    question: "Qual é o principal esporte na Itália?",
-    options: ["Basquete", "Tênis", "Futebol", "Rugby"],
+    question: "What is the main sport in Italy?",
+    options: ["Basketball", "Tennis", "Football", "Rugby"],
     answer: 2,
   },
 ] satisfies QuizItem[];
