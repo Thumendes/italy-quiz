@@ -56,6 +56,7 @@ export function QuizForm({ id }: QuizFormProps) {
       return;
     }
 
+    setTimer(initialTimer);
     setShowCorrect(false);
     setCurrentItem((prev) => prev + 1);
   }
@@ -80,7 +81,7 @@ export function QuizForm({ id }: QuizFormProps) {
     const interval = timer > 0 && setInterval(() => setTimer(timer - 1), 1000);
 
     if (timer === 0) {
-      checkAnswer().then(() => setTimer(initialTimer));
+      checkAnswer();
     }
 
     return () => {
